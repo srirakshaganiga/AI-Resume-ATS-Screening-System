@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+          initial-scale=1.0">
+
+    <title>
+        ATS Admin Dashboard
+    </title>
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f8;
+
+            margin: 0;
+
+            padding: 30px;
+
+        }
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+            0 4px 15px
+            rgba(0,0,0,0.1);
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+        th,
+        td {
+
+            padding: 12px;
+
+            border: 1px solid #ddd;
+
+            text-align: left;
+
+        }
+
+        th {
+
+            background: #222;
+
+            color: white;
+
+        }
+
+        tr:nth-child(even) {
+
+            background: #f8f8f8;
+
+        }
+
+        .shortlisted {
+
+            font-weight: bold;
+
+        }
+
+        .rejected {
+
+            font-weight: bold;
+
+        }
+
+        .score {
+
+            font-weight: bold;
+
+        }
+
+        .top-buttons {
+
+            margin-bottom: 20px;
+
+        }
+
+        .button {
+
+            display: inline-block;
+
+            padding: 10px 15px;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            background: #222;
+
+            color: white;
+
+            margin-right: 10px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <h1>
+        AI ATS Recruitment Dashboard
+    </h1>
+
+
+    <div class="top-buttons">
+
+        <a
+            href="/"
+            class="button"
+        >
+            Analyze New Resume
+        </a>
+
+    </div>
+
+
+    {% if candidates %}
+
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>
+                ID
+            </th>
+
+            <th>
+                Candidate
+            </th>
+
+            <th>
+                Email
+            </th>
+
+            <th>
+                ATS Score
+            </th>
+
+            <th>
+                Qualification
+            </th>
+
+            <th>
+                Matched Skills
+            </th>
+
+            <th>
+                Missing Skills
+            </th>
+
+            <th>
+                Status
+            </th>
+
+            <th>
+                Date
+            </th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+        {% for candidate in candidates %}
+
+        <tr>
+
+            <td>
+                {{ candidate.id }}
+            </td>
+
+            <td>
+                {{ candidate.name }}
+            </td>
+
+            <td>
+                {{ candidate.email }}
+            </td>
+
+            <td class="score">
+
+                {{ candidate.ats_score }}%
+
+            </td>
+
+            <td>
+
+                {{ candidate.qualification_score }}%
+
+            </td>
+
+            <td>
+
+                {{ candidate.matched_skills }}
+
+            </td>
+
+            <td>
+
+                {{ candidate.missing_skills }}
+
+            </td>
+
+            <td>
+
+                {% if candidate.status == "SHORTLISTED" %}
+
+                    <span class="shortlisted">
+                        SHORTLISTED
+                    </span>
+
+                {% else %}
+
+                    <span class="rejected">
+                        REJECTED
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {{ candidate.created_at }}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+
+        </tbody>
+
+    </table>
+
+
+    {% else %}
+
+
+        <h3>
+            No candidates have been screened yet.
+        </h3>
+
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>

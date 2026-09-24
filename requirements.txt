@@ -2,3 +2,4 @@ Flask
 PyPDF2
 Flask-Mail
 scikit-learn
+mysql-connector-python
